@@ -13,3 +13,39 @@
  *= require_tree .
  *= require_self
  */
+
+ /* Inventory */
+ .inventory {
+  max-width: 600px;
+  margin: auto;
+  border: 4px solid black;
+  display: flex;
+  gap: 25px;
+ }
+
+ .inventory-item {
+  float: left;
+  width: 30%;
+  height: 90px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+ }
+
+ .name a {
+    text-decoration: none;
+    margin: auto;
+    color: black;
+ }
+
+ a {
+    color: black;
+ }
+ .Description{
+    float: right;
+    color: black;
+    width: 60%;
+    line-height: 30px;
+ }
