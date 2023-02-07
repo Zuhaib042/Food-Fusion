@@ -1,11 +1,11 @@
 <div class="container">
-  <h1><%= Inventory.name %></h1>
+  <h1><%= @inventory.name %></h1>
   <div>
     <%= link_to new_inventory_inventory_food_path(@inventory) do %>
       Add Food
     <% end %>
   </div>
-  <table>
+   <table>
     <thead>
       <tr>
         <th>Food</th>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @inventory_food.each do |inv| %>
+      <% @inventory_food.freeze do |inv| %>
       <tr>
         <td><%= inv.food.name%></td>
         <td><%= inv.quantity%><%= inv.food.measurement_unit %></td>
@@ -23,8 +23,10 @@
       <% end %>
     </tbody>  
   </table>
-</div>
 <div class="footer">
+  <% @inventory_food.freeze do |inv| %>
   <%= link_to "Back to inventories", inventories_path %>
   <%= button_to "Delete", inventory_inventory_food_path(inv.id), method: :delete %>
+   <% end %>
+</div>
 </div>
