@@ -1,8 +1,8 @@
-<% @inventories.freeze do |inventory| %>
+<% @inventories.each do |inventory| %>
   <div class="inventory ">
     <div class="inventory-item">
       <h2 class="name"><%= link_to inventory.name, inventory_path(inventory) %></h2>
-      <%= link_to "Remove", inventory_path(inventory.id), method: :delete%>
+      <%= button_to "Remove", inventory_path(inventory.id), method: :delete%>
     </div>
       <p class="Description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ipsum culpa vero deleniti quisquam eos alias reiciendis ex optio distinctio?</p>  
   </div>

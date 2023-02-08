@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="text-4xl font-extrabold text-center pb-8"><%= @inventory.name %></h1>
-    <span  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><%= link_to new_inventory_inventory_food_path(@inventory) do %>
+    <span  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><%= link_to new_food_path do %>
       Add Food
     <% end %></span>
    <div class="flex justify-center">
@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @inventory_food.freeze do |f| %>
+      <% @inventory_food.each do |f| %>
       <tr>
         <th><%= f.food.name%></th>
         <th><%= f.quantity%><%=f.food.measurement_unit %></th>
