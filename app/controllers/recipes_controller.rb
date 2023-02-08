@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  load_and_authorize_resource
   def index
     @recipes = current_user.recipes.all
   end
@@ -10,7 +11,7 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
   end
-  
+
   def create
     @recipe = Recipe.new(**recipe_params, user_id: current_user.id)
 
@@ -23,7 +24,13 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    
+    @recipes = Recipe.all
+    @recipe = @recipes.find(params[:id])
+    if @recipe.destroy
+      redirect_to recipes_path, notice: 'Post was successfully destroyed.'
+    else
+      flash.now[:error] = 'Error: Post could not be deleted'
+    end
   end
 
   private
