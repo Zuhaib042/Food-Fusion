@@ -14,19 +14,19 @@
       </tr>
     </thead>
     <tbody>
-      <% @inventory_food.freeze do |inv| %>
+      <% @inventory_food.freeze do |f| %>
       <tr>
-        <td><%= inv.food.name%></td>
-        <td><%= inv.quantity%><%= inv.food.measurement_unit %></td>
-        <td><%= button_to "Delete", inventory_inventory_food_path(inv.id), method: :delete %></td>
+        <td><%= f.food.name%></td>
+        <td><%= f.quantity%><%=f.food.measurement_unit %></td>
+        <td><%= button_to "Delete", inventory_inventory_food_path(f.id), method: :delete %></td>
       </tr>
       <% end %>
     </tbody>  
   </table>
 <div class="footer">
-  <% @inventory_food.freeze do |inv| %>
+  <% @inventory_food.freeze do |f| %>
   <%= link_to "Back to inventories", inventories_path %>
-  <%= button_to "Delete", inventory_inventory_food_path(inv.id), method: :delete %>
+  <%= button_to "Delete", inventory_inventory_food_path(f.id), method: :delete %>
    <% end %>
 </div>
 </div>
