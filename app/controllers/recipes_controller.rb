@@ -13,7 +13,6 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @user
     @recipe = Recipe.new(**recipe_params, user_id: current_user.id)
 
     if @recipe.save
