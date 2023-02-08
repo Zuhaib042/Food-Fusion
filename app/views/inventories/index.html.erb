@@ -1,4 +1,4 @@
-<% @inventories.each do |inventory| %>
+<% @inventories.freeze do |inventory| %>
   <div class="inventory ">
     <div class="inventory-item">
       <h2 class="name"><%= link_to inventory.name, inventory_path(inventory) %></h2>
