@@ -1,8 +1,8 @@
 class InventoriesController < ApplicationController
   def index
     @inventories = current_user.inventories.all
-  end 
-  
+  end
+
   def new
     @inventory = Inventory.new
   end
@@ -14,17 +14,17 @@ class InventoriesController < ApplicationController
   def create
     @inventory = Inventory.new(params[:inventory])
     if @inventory.save
-        flash[:notice] = "Successfully created inventory."
-        redirect_to inventories_path
+      flash[:notice] = 'Successfully created inventory.'
+      redirect_to inventories_path
     else
-        render :action => 'new'
+      render action: 'new'
     end
   end
 
   def destroy
     @inventory = Inventory.find(params[:id])
     @inventory.destroy
-    flash[:notice] = "Successfully destroyed inventory."
+    flash[:notice] = 'Successfully destroyed inventory.'
     redirect_to inventories_path
   end
-end 
+end
