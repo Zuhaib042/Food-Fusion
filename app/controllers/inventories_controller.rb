@@ -12,7 +12,8 @@ class InventoriesController < ApplicationController
   end
 
   def create
-    @inventory = Inventory.new(name: params[:inventory][:name], created_at: '2020/01/01', updated_at: '2020/01/01', user: current_user)
+    @inventory = Inventory.new(name: params[:inventory][:name], created_at: '2020/01/01', updated_at: '2020/01/01',
+                               user: current_user)
     if @inventory.save
       flash[:notice] = 'Inventory created Successfully.'
       redirect_to inventories_path
