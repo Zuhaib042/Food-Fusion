@@ -23,9 +23,15 @@ class RecipesController < ApplicationController
     end
   end
 
+  def update
+    recipe = Recipe.find(params[:id])
+    recipe.toggle(:public)
+    recipe.save
+    redirect_to recipe_path(recipe.id)
+  end
+
   def destroy
-    @recipes = Recipe.all
-    @recipe = @recipes.find(params[:id])
+    @recipe = Recipe.find(params[:id])
     if @recipe.destroy
       redirect_to recipes_path, notice: 'Post was successfully destroyed.'
     else

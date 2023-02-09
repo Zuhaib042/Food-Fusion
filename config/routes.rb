@@ -17,5 +17,5 @@ Rails.application.routes.draw do
 
   resources :public_recipes, only: [:index]
   post 'shopping_list/:recipe_id', to: 'shopping_lists#generate'
-  get 'shopping_list', to: 'shopping_lists#show'
+  resources :shopping_list, only: [:index]
 end
