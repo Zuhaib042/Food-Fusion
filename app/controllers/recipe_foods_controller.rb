@@ -40,15 +40,15 @@ class RecipeFoodsController < ApplicationController
   end
 
   private
-  
+
   def set_recipe
     @recipe = Recipe.find(params[:recipe_id])
   end
-  
+
   def set_foods
     @foods = Food.all
   end
-  
+
   # protected params
   def recipe_food_params
     params.required(:recipe_foods).permit(:quantity, :food_id)
