@@ -34,15 +34,16 @@
   font-size: 25px;
 }
 
+a {
+  color: black;
+}
+
 .name a {
   text-decoration: none;
   margin: auto;
   color: black;
 }
 
-a {
-  color: black;
-}
 .Description {
   float: right;
   color: black;
