@@ -1,5 +1,3 @@
-class InventoryFoodsController < ApplicationController
- 
   def new
     @id = Inventory.find(params[:inventory_id]).id
     @foods = current_user.foods.all
@@ -16,7 +14,6 @@ class InventoryFoodsController < ApplicationController
       redirect_to inventory_path(@inventory), alert: 'try again.'
     end
   end
-   
 
   def destroy
     @food = InventoryFood.find(params[:id])
