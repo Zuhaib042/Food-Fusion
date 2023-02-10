@@ -1,0 +1,15 @@
+<%= form_with(model: inventory) do |form| %>
+<% if inventory.errors.any? %>
+<div>
+ <h2><%= pluralize(inventory.errors.count, "error") %>prohibited this inventory from being saved:</h2>
+  <ul>
+    <% inventory.errors.each do |error| %>
+    <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
