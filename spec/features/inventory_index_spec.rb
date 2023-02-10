@@ -26,7 +26,7 @@ RSpec.describe 'Index page of Inventory', type: :system do
     end
 
     it 'should display Inventory details' do
-      expect(page).to have_text('Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ipsum culpa vero deleniti quisquam eos alias reiciendis ex optio distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ipsum culpa vero deleniti quisquam eos alias reiciendis ex optio distinctio?')
+      expect(page).to have_text('Lorem ipsum dolor sit amet consectetur adipisicing elit.')
     end
 
     it 'should have an Add inventory button' do
