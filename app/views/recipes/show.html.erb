@@ -42,6 +42,12 @@
           </button>
         </div>
         <!-- Modal body -->
+        <h2 class="text-center text-xl font-bold">Generating Shopping List</h2>
+        <p>Choose an inventory to use</p>
+        <%= form_with url: shopping_list_index_path , method: :post do |form| %>
+          <%# <%= form.select :inventory_id, @inventories.map { |inventory| [inventory.name, inventory.id] } %> %>
+          <button type="submit" class='mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Generate</button>
+        <% end %>
         <!-- Modal footer -->
         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
@@ -51,96 +57,43 @@
   </div>
   <%# Main Modal ends %>
   <%# table %>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="px-6 py-3">
-            Food
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Quantity
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Value
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Action
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            Apple MacBook Pro 17"
-          </th>
-          <td class="px-6 py-4">
-            Sliver
-          </td>
-          <td class="px-6 py-4">
-            Laptop
-          </td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-          </td>
-        </tr>
-        <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            Microsoft Surface Pro
-          </th>
-          <td class="px-6 py-4">
-            White
-          </td>
-          <td class="px-6 py-4">
-            Laptop PC
-          </td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-          </td>
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            Magic Mouse 2
-          </th>
-          <td class="px-6 py-4">
-            Black
-          </td>
-          <td class="px-6 py-4">
-            Accessories
-          </td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-          </td>
-        </tr>
-        <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            Google Pixel Phone
-          </th>
-          <td class="px-6 py-4">
-            Gray
-          </td>
-          <td class="px-6 py-4">
-            Phone
-          </td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-          </td>
-        </tr>
-        <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            Apple Watch 5
-          </th>
-          <td class="px-6 py-4">
-            Red
-          </td>
-          <td class="px-6 py-4">
-            Wearables
-          </td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <% if @recipe_foods.empty? %>
+    <p>Ingredients dont exist yet.</p>
+  <% else %>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Food
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Quantity
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Value
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_foods.each do |recipe_food| %>
+            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= recipe_food.food.name %></th>
+              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= recipe_food.quantity %></td>
+              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">$ <%= recipe_food.quantity.to_i * recipe_food.food.price.to_i %></td>
+              <td>
+                <div class="flex gap-2">
+                  <%= link_to "Edit", edit_recipe_recipe_food_path(@recipe, recipe_food), class: "font-medium p-1 rounded bg-blue-500 text-white dark:text-white hover:underline" %>
+                  <%= link_to "Delete", recipe_recipe_food_path(@recipe, recipe_food), data:  { turbo_method: :delete }, class: "font-medium p-1 rounded bg-red-500 text-white dark:text-white hover:underline" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
