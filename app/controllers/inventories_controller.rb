@@ -12,9 +12,10 @@ class InventoriesController < ApplicationController
   end
 
   def create
-    @inventory = Inventory.new(params[:inventory])
+    @inventory = Inventory.new(name: params[:inventory][:name], created_at: '2020/01/01', updated_at: '2020/01/01',
+                               user: current_user)
     if @inventory.save
-      flash[:notice] = 'Successfully created inventory.'
+      flash[:notice] = 'Inventory created Successfully.'
       redirect_to inventories_path
     else
       render action: 'new'
@@ -24,7 +25,7 @@ class InventoriesController < ApplicationController
   def destroy
     @inventory = Inventory.find(params[:id])
     @inventory.destroy
-    flash[:notice] = 'Successfully destroyed inventory.'
+    flash[:notice] = 'Inventory deleted Successfully.'
     redirect_to inventories_path
   end
 end
