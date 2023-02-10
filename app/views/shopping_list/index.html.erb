@@ -1,0 +1,7 @@
+<h1>Shopping list </h1>
+@missing_foods.count
+<% @missing_foods.each do |food| %>
+  Name: <%= food.name %>
+  Quantity: <%= food.quantity(@recipe) %>
+  Price: <%= food.price %>
+<% end %>

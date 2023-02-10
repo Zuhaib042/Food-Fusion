@@ -46,8 +46,9 @@
         <!-- Modal body -->
         <h2 class="text-center text-xl font-bold">Generating Shopping List</h2>
         <p>Choose an inventory to use</p>
-        <%= form_with url: shopping_list_index_path , method: :post do |form| %>
+        <%= form_with url: shopping_list_index_path , method: :get do |form| %>
           <%= form.select :inventory_id, @inventories.map { |inventory| [inventory.name, inventory.id] } %>
+          <%= form.hidden_field :recipe_id , value: @recipe.id %>
           <button type="submit" class='mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Generate</button>
         <% end %>
         <!-- Modal footer -->
