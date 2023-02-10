@@ -44,8 +44,6 @@ gem 'devise'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
-gem 'rails-controller-testing'
-
 # cancancan for authorication
 gem 'cancancan'
 
@@ -60,6 +58,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'shoulda-matchers'
 end
