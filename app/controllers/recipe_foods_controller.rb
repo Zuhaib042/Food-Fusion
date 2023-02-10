@@ -44,5 +44,4 @@ class RecipeFoodsController < ApplicationController
   def set_foods
     @foods = Food.all
   end
-
 end
