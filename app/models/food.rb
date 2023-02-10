@@ -12,6 +12,4 @@ class Food < ApplicationRecord
   def quantity(recipe)
     recipe_foods.find_by(recipe_id: recipe.id).quantity
   end
-  
-
 end

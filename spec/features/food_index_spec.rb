@@ -4,7 +4,7 @@ RSpec.describe 'Index page of Food', type: :system do
   before do
     user2 = User.create(id: 2, name: 'Test', email: 'Test@rspec.check', password: '123456')
     user2.save
-    food1 = user2.foods.new(name: 'Eggs', measurement_unit: "100 grams", price: 10)
+    food1 = user2.foods.new(name: 'Eggs', measurement_unit: '100 grams', price: 10)
     food1.save
   end
 

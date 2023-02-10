@@ -4,7 +4,8 @@ RSpec.describe 'Index page of Recipe', type: :system do
   before do
     user1 = User.create(id: 1, name: 'ali', email: 'ali@example.com', password: '123456')
     user1.save
-    recipe1 = user1.recipes.new(name: 'Biryani', preparation_time: '1 hour', cooking_time: '2 hour', description: 'lorem ipsum')
+    recipe1 = user1.recipes.new(name: 'Biryani', preparation_time: '1 hour', cooking_time: '2 hour',
+                                description: 'lorem ipsum')
     recipe1.save
   end
 

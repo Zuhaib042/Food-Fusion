@@ -1,6 +1,6 @@
 class RecipeFoodsController < ApplicationController
   before_action :set_recipe
-  before_action :set_foods, except: [:new, :edit]
+  before_action :set_foods, except: %i[new edit]
 
   def new
     @recipe_food = RecipeFood.new
