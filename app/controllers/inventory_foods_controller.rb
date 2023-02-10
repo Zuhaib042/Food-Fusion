@@ -1,6 +1,6 @@
 class InventoryFoodsController < ApplicationController
   def index
-    @InventoryFood = InventoryFood.all
+    @inventoryFood = InventoryFood.all
   end
 
   def create
@@ -21,7 +21,6 @@ class InventoryFoodsController < ApplicationController
 
   def destroy
     food = InventoryFood.find(params[:id])
-    p food
     food.destroy
     redirect_to inventory_inventory_food_path
   end
