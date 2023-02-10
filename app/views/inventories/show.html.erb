@@ -1,26 +1,27 @@
 <div class="container">
   <h1 class="text-4xl font-extrabold text-center pb-8"><%= @inventory.name %></h1>
-    <span  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><%= link_to new_food_path do %>
-      Add Food
-    <% end %></span>
-   <div class="flex justify-center">
-   <table class="w-1/2 bg-gray-100 mt-6">
-    <thead>
-      <tr>
-        <th class="col">Food</th>
-        <th class="col">Quantity</th>
-        <th class="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @inventory.inventory_foods.each do |f| %>
-      <tr>
-        <th><%= f.food.name%></th>
-        <th><%= f.quantity%><%=f.food.measurement_unit %></th>
-        <th><%= button_to "Delete", inventory_inventory_food_path(f.id), method: :delete, class: 'flex justify-end text-white bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' %></th>
-      </tr>
-      <% end %>
-    </tbody>  
-  </table>
+  <div class="flex justify-end mx-10">
+    <span  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><%= link_to new_inventory_inventory_food_path(@inventory) do %>
+        Add Food
+      <% end %></span></div>
+  <div class="flex justify-center">
+    <table class="w-1/2 bg-gray-100 mt-6">
+      <thead>
+        <tr>
+          <th class="col">Food</th>
+          <th class="col">Quantity</th>
+          <th class="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @inventory.inventory_foods.each do |f| %>
+          <tr>
+            <th><%= f.food.name%></th>
+            <th><%= f.quantity%><%=f.food.measurement_unit %></th>
+            <th><%= button_to "Delete", inventory_inventory_food_url(@inventory.id, f), method: :delete, class: 'flex justify-end text-white bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' %></th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
