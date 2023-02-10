@@ -1,9 +1,10 @@
 class RecipeFoodsController < ApplicationController
   before_action :set_recipe
-  before_action :set_foods
+  before_action :set_foods, except: [:new, :edit]
 
   def new
     @recipe_food = RecipeFood.new
+    @foods = current_user.foods.all
   end
 
   def create
