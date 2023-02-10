@@ -1,1 +1,12 @@
-<div class=" text-zinc-500 mt-12 "> hello there </div>
+<h1 class="text-2xl font-extrabold text-gray-900  md:text-3xl lg:text-4xl"> Public Recipes List </h1>
+<div class="wrapper">
+
+<% if @public_recipes.length != 0 %>
+<% @public_recipes.each do |recipe| %>
+  <%= render partial: 'public_recipe_card', locals: { recipe: recipe, user_id: recipe.id } %>
+<% end %>
+<% else %>
+  <h1 class="text-2xl font-extrabold text-gray-900  md:text-3xl lg:text-4xl">There are no public recipes to show</h1>
+<% end %>
+
+</div>
