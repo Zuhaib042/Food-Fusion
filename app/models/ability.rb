@@ -9,6 +9,9 @@ class Ability
     can :read, :all
     can :manage, Recipe, user_id: user.id unless user.nil?
     can :manage, Food, user_id: user.id unless user.nil?
+    can :manage, Inventory, user_id: user.id unless user.nil?
+    can :manage, InventoryFood, user_id: user.id unless user.nil?
+
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
