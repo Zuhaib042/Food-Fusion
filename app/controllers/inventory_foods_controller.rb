@@ -1,6 +1,6 @@
 class InventoryFoodsController < ApplicationController
   def index
-    @inventoryFood = InventoryFood.all
+    @inventoryfood = InventoryFood.all
   end
 
   def create
