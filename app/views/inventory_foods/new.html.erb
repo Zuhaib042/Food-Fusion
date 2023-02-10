@@ -1,14 +1,15 @@
 <h1 class="text-2xl font-extrabold text-gray-900  md:text-3xl lg:text-4xl flex justify-center">New Inventory Food</h1>
-<%= form_for @inventoryfood, url: inventory_inventory_foods_url do |form| %>
 <div>
-  <%= form.label :quantity, class: 'block mb-2 text-sm font-medium text-gray-900' %>
-  <%= form.number_field :quantity, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
-  <%= form.label :food_id, class: 'block mb-2 text-sm font-medium text-gray-900' %>
-  <%= form.select :food_id, @foods.map { |food| [food.name, food] } %>
+  <%= form_with url: "/inventories/#{@id}/inventory_foods", method: :post do |f| %>
+    <div class="form-group mt-3">
+      <%= f.select :food_id, @foods.collect  { |f| [f.name, f.id] }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+    </div>
+    <div class="form-group mt-3">
+      <%= f.number_field :quantity, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Quantity" %>
+    </div>
+    <button type="submit" class='mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Save</button>
+  <% end %>
 </div>
-<%= form.submit "Add Food",  class: 'my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
-<br>
-<% end %>
 <div>
-  <%= link_to "Back to inventories", inventories_path%>
+  <%= link_to "Back to inventories", inventories_path %>
 </div>

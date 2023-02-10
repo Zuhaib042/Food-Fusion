@@ -1,33 +1,32 @@
 class InventoryFoodsController < ApplicationController
-  def index
-    @inventoryfood = InventoryFood.all
+ 
+  def new
+    @id = Inventory.find(params[:inventory_id]).id
+    @foods = current_user.foods.all
   end
 
   def create
     @foods = Food.all
-    @inventoryfood = InventoryFood.create(inventory_food_params)
-    @inventoryfood.inventory = Inventory.find(params[:Inventory_id])
-    if @inventoryfood.save
-      redirect_to inventory_url(@inventoryfood.inventory), notice: 'InventoryFood Successfully created'
+    @inventory = Inventory.find(params[:inventory_id])
+    @inventory_food = InventoryFood.new(quantity: params[:quantity], food_id: params[:food_id])
+    @inventory_food.inventory = @inventory
+    if @inventory_food.save
+      redirect_to inventory_path(@inventory), notice: 'InventoryFood Successfully created'
     else
-      render :new, status: :unprocessable_entity
+      redirect_to inventory_path(@inventory), alert: 'try again.'
     end
   end
-
-  def new
-    @inventoryfood = InventoryFood.new
-    @foods = Food.all
-  end
+   
 
   def destroy
-    food = InventoryFood.find(params[:id])
-    food.destroy
+    @food = InventoryFood.find(params[:id])
+    @food.destroy
     redirect_to inventory_inventory_food_path
   end
 
-  private
+  # private
 
-  def inventory_food_params
-    params.require(:inventory_foods).permit(:quantity, food_id)
-  end
+  # def inventory_food_params
+  #   params.require(:inventory_foods).permit(:quantity, food_id)
+  # end
 end
