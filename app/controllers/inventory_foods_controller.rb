@@ -1,4 +1,5 @@
 class InventoryFoodsController < ApplicationController
+ 
   def new
     @id = Inventory.find(params[:inventory_id]).id
     @foods = current_user.foods.all
