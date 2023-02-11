@@ -5,7 +5,6 @@
 </div>
 <section class="mx-auto w-full mt-6">
   <ul>
-    <%# <% if can? :manage, recipe %> %>
     <% @recipes.each do |recipe| %>
       <li class="grid grid-cols-12 border mb-6 py-6 px-4">
         <div class="mb-4 sm:mb-0 col-span-12 sm:col-span-4 items-center justify-center ">
@@ -24,6 +23,5 @@
         </div>
       </li>
     <% end %>
-    <%# <% end %> %>
   </ul>
 </section>
