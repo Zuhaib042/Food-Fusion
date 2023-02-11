@@ -1,7 +1,48 @@
-<h1>Shopping list </h1>
-@missing_foods.count
-<% @missing_foods.each do |food| %>
-  Name: <%= food.name %>
-  Quantity: <%= food.quantity(@recipe) %>
-  Price: <%= food.price %>
-<% end %>
+<h1 class="text-center mb-2 text-xl font-extrabold text-gray-900  md:text-2xl lg:text-3xl">
+  Shopping list 
+</h1>
+<div class="flex flex-col gap-y-1">
+  <div class="flex justify-between">
+    <div class="text-xl font-semibold text-gray-900">
+      <span>Amount of Food to buy: </span> <span class="italic"><%= @missing_foods.length %></span>
+    </div>
+    <div class="text-xl font-semibold text-gray-900">
+      <span>Recipe: </span> <span class="italic underline"><%= link_to @recipe.name , recipe_path(@recipe) %></span>
+    </div>
+  </div>
+  <div class="flex justify-between">
+    <div class="text-lg font-semibold text-gray-900">
+      <span>Total value of food needed: </span> <span class="italic">$<%= @missing_foods.reduce(0) { |sum, f| sum + (f.price.to_i * f.quantity(@recipe).to_i) } %></span>
+    </div>
+    <div class="text-xl font-semibold text-gray-900">
+      <span>Inventory: </span> <span class="italic underline"><%= link_to @inventory.name, inventory_path(@inventory) %></span>
+    </div>
+  </div>
+  <%# table %>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Food
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Quantity
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Price
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @missing_foods.each do |food| %>
+          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= food.name %></th>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= food.quantity(@recipe) %></td>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">$ <%= food.price.to_i * food.quantity(@recipe).to_i %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
