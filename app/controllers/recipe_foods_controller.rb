@@ -4,7 +4,7 @@ class RecipeFoodsController < ApplicationController
 
   def new
     @recipe_food = RecipeFood.new
-    @foods = current_user.foods.all
+    @foods = current_user.foods.includes(:user).all
   end
 
   def create
