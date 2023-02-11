@@ -1,0 +1,14 @@
+<div class="flex justify-between">
+  <h1 class="text-2xl font-extrabold text-gray-900  md:text-3xl lg:text-4xl">All Inventory of <%= current_user.name %>
+  </h1>
+  <%= link_to 'Add Inventory', new_inventory_path , class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'  %>
+</div>
+<% @inventories.each do |inventory| %>
+  <section class="w-100 border-2 border-blue-600 mt-8 flex gap-x-2 mx-20 rounded-lg ">
+    <div class="mx-10 my-4">
+      <h2 class="text-xl font-bold text-gray-900 mb-2"><%= link_to inventory.name, inventory_path(inventory) %></h2>
+      <span class="border-b-4 border-indigo-500"><%= button_to "Remove", inventory_path(inventory.id), method: :delete, class: 'text-white bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' %><span>
+        </div>
+        <p class="my-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ipsum culpa vero deleniti quisquam eos alias reiciendis ex optio distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ipsum culpa vero deleniti quisquam eos alias reiciendis ex optio distinctio?</p>
+      </section>
+    <% end %>

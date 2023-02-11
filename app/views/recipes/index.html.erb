@@ -1,0 +1,27 @@
+<div class="flex justify-between">
+  <h1 class="text-2xl font-extrabold text-gray-900  md:text-3xl lg:text-4xl">All Recipes of <%= current_user.name %>
+  </h1>
+  <%= link_to 'Add new Recipe', new_recipe_path , class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'  %>
+</div>
+<section class="mx-auto w-full mt-6">
+  <ul>
+    <% @recipes.each do |recipe| %>
+      <li class="grid grid-cols-12 border mb-6 py-6 px-4">
+        <div class="mb-4 sm:mb-0 col-span-12 sm:col-span-4 items-center justify-center ">
+          <div class="text-xl font-bold text-gray-900 mb-2">
+            <%= link_to recipe.name, recipe_path(recipe.id) %>
+          </div>
+          <% if can? :destroy, recipe %>
+            <%= link_to 'Delete', recipe_path(recipe.id), data: { turbo_method: :delete }, class: 'text-white bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' %>
+          <% end %>
+        </div>
+        <div class="col-span-12 sm:col-span-8">
+          <h4 class="text-lg font-semibold">Instructions</h4>
+          <p>
+            <%= recipe.description %>
+          </p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</section>

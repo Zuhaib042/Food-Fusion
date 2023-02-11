@@ -1,0 +1,102 @@
+<h1 class="text-center mb-2 text-xl font-extrabold text-gray-900  md:text-2xl lg:text-3xl">
+  <%= @recipe.name %>
+</h1>
+<div class="flex flex-col gap-y-1">
+  <div class="flex justify-between">
+    <div class="text-xl font-semibold text-gray-900">
+      <span>Preparation Time: </span> <span class="italic"><%= @recipe.preparation_time %></span>
+    </div>
+    <%= form_for @recipe, method: :PATCH do |f| %>
+      <%= f.submit "Public", class: 'text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' if @recipe.public %>
+      <%= f.submit "Private" , class: 'text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' unless @recipe.public %>
+    <% end %>
+  </div>
+  <div class="text-lg font-semibold text-gray-900">
+    <span>Cooking Time: </span> <span class="italic"><%= @recipe.cooking_time %></span>
+  </div>
+  <div>
+    <span class="text-lg font-semibold text-gray-900">Steps :</span>
+    <span><%= @recipe.description %></span>
+  </div>
+  <%# modal and its button %>
+  <% if can? :destroy, @recipe %>
+    <div class="flex justify-between my-2">
+      <!-- Modal toggle -->
+      <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        Generate Shopping list
+      </button>
+      <%= link_to 'Add Ingredient', new_recipe_recipe_food_path(@recipe) , class: 'text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-36 sm:w-auto px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
+    </div>
+  <% end %>
+  <!-- Main modal -->
+  <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    <div class="relative w-full h-full max-w-2xl md:h-auto">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow ">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900">
+            Generating Shopping List
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <h2 class="text-center text-xl font-bold">Generating Shopping List</h2>
+        <p>Choose an inventory to use</p>
+        <%= form_with url: shopping_list_index_path , method: :get do |form| %>
+          <%= form.select :inventory_id, @inventories.map { |inventory| [inventory.name, inventory.id] } %>
+          <%= form.hidden_field :recipe_id , value: @recipe.id %>
+          <button type="submit" class='mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Generate</button>
+        <% end %>
+        <!-- Modal footer -->
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%# Main Modal ends %>
+  <%# table %>
+  <% if @recipe_foods.empty? %>
+    <p>Ingredients dont exist yet.</p>
+  <% else %>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Food
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Quantity
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Value
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_foods.each do |recipe_food| %>
+            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= recipe_food.food.name %></th>
+              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= recipe_food.quantity %></td>
+              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">$ <%= recipe_food.quantity.to_i * recipe_food.food.price.to_i %></td>
+              <td>
+                <div class="flex gap-2">
+                  <%= link_to "Edit", edit_recipe_recipe_food_path(@recipe, recipe_food), class: "font-medium p-1 rounded bg-blue-500 text-white dark:text-white hover:underline" %>
+                  <%= link_to "Delete", recipe_recipe_food_path(@recipe, recipe_food), data:  { turbo_method: :delete }, class: "font-medium p-1 rounded bg-red-500 text-white dark:text-white hover:underline" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
